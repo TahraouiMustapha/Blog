@@ -1,12 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
 @import "tailwindcss";
+
+@theme {
+    /* roboto font */
+    --font-rob: 'Roboto', sans-serif;
+    /* custom colors */
+    --color-primary: #2563EB;
+    --color-darkerPrimary: #1E40AF;
+    --color-second: #F59E0B;
+    --color-txtClr: #1A1A1A;
+    --color-brdClr: #E5E7EB;
+}
+
 
 body {
     margin: 0;
     padding: 0;
 }
 
+.linkBtn {
+    @apply p-0 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-black after:transition-all after:duration-300 after:ease-in hover:after:w-full;
+}
+
+/* just for seeing */
 .bigDiv>div {
-    @apply border border-solid border-gray-500;
+    @apply border border-solid border-red-500;
 }
