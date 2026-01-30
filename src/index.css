@@ -23,6 +23,6 @@ body {
 }
 
 /* just for seeing */
-.bigDiv>div {
+.bigDiv>* {
     @apply border border-solid border-red-500;
 }

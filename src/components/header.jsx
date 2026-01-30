@@ -28,7 +28,7 @@ const Btns = () => {
 
 const Header = () => {
     return (
-        <div className="h-16 flex justify-around items-center border-b border-brdClr">
+        <div className="h-18 flex justify-around items-center border-b border-brdClr">
             <Logo />
             <Btns />
         </div>

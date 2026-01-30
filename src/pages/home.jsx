@@ -1,8 +1,11 @@
+import Hero from "../components/hero";
+
 const Home = () => {
     return (
-        <>
-            <h3>home</h3>
-        </>
+        <div className="flex-1">
+            <Hero />
+            <div>Posts</div>
+        </div>
     )
 }
 
