@@ -7,7 +7,7 @@ import { Outlet } from 'react-router';
 
 const App = () => {
   return (
-    <div className="font-rob min-h-screen w-screen flex flex-col bg-white">
+    <div className="font-rob min-h-screen w-full flex flex-col bg-white">
       <Header></Header>
       <Outlet />
       <Footer></Footer>

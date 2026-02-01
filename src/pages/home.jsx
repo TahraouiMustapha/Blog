@@ -1,13 +1,11 @@
 import Hero from "../components/hero";
-import useGetPosts from "../hooks/useGetPosts";
+import PostsContainer from "../components/PostsContainer";
 
 const Home = () => {
-    const { posts, error, loading } = useGetPosts();
-    console.log(posts)
     return (
         <div className="flex-1">
             <Hero />
-            <div>Posts</div>
+            <PostsContainer />
         </div>
     )
 }

@@ -1,4 +1,3 @@
-import { Link } from 'react-router'
 import { Newspaper } from "lucide-react"
 import LogoName from './logoName'
 import PrimaryBtn from './primaryBtn'
