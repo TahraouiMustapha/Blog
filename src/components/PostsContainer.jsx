@@ -1,5 +1,6 @@
 import { useState } from "react"
 import useGetPosts from "../hooks/useGetPosts";
+import BlogCard from "./blogCard";
 
 
 const Posts = ({ posts, loading, error }) => {
@@ -8,10 +9,10 @@ const Posts = ({ posts, loading, error }) => {
     if (loading) return <p>... Loading</p>
 
     return (
-        <div className="grid grid-cols-[repeat(2,minmax(250px,1fr))] gap-8">
+        <div className="w-[60%] grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] auto-rows-[400px] gap-8">
             {/* cards (divs) */}
             {posts.map(post => (
-                <div key={post.postId}>{post.title}</div>
+                <BlogCard key={post.postId} post={post} />
             ))}
         </div>
     )
@@ -25,7 +26,7 @@ const SearchBar = ({ setSearchValue }) => {
             onChange={(e) => {
                 setSearchValue(e.target.value)
             }}
-            className="border border-brdClr w-3xs h-10 pl-2.5 rounded-sm"
+            className="outline-none border border-brdClr w-3xs h-10 pl-2.5 rounded-sm border-transition focus:border-primary"
         />
     )
 }
@@ -37,7 +38,7 @@ const PostsContainer = () => {
 
 
     return (
-        <div className="pt-12 pb-12 flex flex-col items-center gap-8">
+        <div className="pt-12 pb-12 flex flex-col items-center gap-8 text-txtClr">
             <h1 className="text-5xl font-bold">Available <span className="text-primary">TOP</span> blog articles</h1>
             <SearchBar setSearchValue={setSearchValue} />
             <Posts posts={posts} loading={loading} error={error} />
