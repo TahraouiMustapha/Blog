@@ -21,7 +21,7 @@ const useGetPosts = () => {
                 setPosts(receivedPosts)
             })
             .catch(error => {
-                setError(error)
+                if (error.name !== 'AbortError') setError(error)
             })
             .finally(() => {
                 setLoading(false)
