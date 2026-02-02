@@ -35,13 +35,15 @@ const PostsContainer = () => {
     const { posts, error, loading } = useGetPosts()
     const [searchValue, setSearchValue] = useState('')
 
+    // '' is a falsy value
+    const searchedPost = !searchValue ? posts : posts.filter(post => post.title.includes(searchValue));
 
 
     return (
         <div className="pt-12 pb-12 flex flex-col items-center gap-8 text-txtClr">
             <h1 className="text-5xl font-bold">Available <span className="text-primary">TOP</span> blog articles</h1>
             <SearchBar setSearchValue={setSearchValue} />
-            <Posts posts={posts} loading={loading} error={error} />
+            <Posts posts={searchedPost} loading={loading} error={error} />
         </div>
     )
 }
