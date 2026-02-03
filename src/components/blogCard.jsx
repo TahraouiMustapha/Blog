@@ -1,23 +1,15 @@
 import { format } from 'date-fns'
-// authorId
-// postId
-// published
 
-
-// date
-// "2025-12-27T16:25:39.505Z"
-// text
-// thumbnailUrl
-// title
 
 const BlogCard = ({ post }) => {
     const date = format(post.date, "do LLL yyyy")
 
     return (
-        <div className="cursor-pointer border border-brdClr rounded-lg shadow-xl flex flex-col border-transition hover:border-primary">
-            <div className="h-[50%]">
-                {/* image */}
-                image
+        <div className="cursor-pointer border border-brdClr rounded-lg shadow-xl flex flex-col border-transition hover:border-primary overflow-hidden">
+            <div
+                style={{ backgroundImage: `url(${post.thumbnailUrl})` }}
+                className="h-[50%] w-full bg-cover bg-center bg-no-repeat"
+            >
             </div>
 
             <div className="flex-1 p-6 flex flex-col gap-2">
@@ -27,7 +19,7 @@ const BlogCard = ({ post }) => {
                     {post.text}
                 </p>
             </div>
-        </div>
+        </div >
     )
 }
 
