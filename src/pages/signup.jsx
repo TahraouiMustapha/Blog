@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 
 const SingUp = () => {
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
 
@@ -23,11 +24,16 @@ const SingUp = () => {
             })
 
             if (!response.ok) {
-                throw new Error(`Http error! status: ${await response.status}`)
+                // handle conflict unique constrains (email)
+                if (response.status == 409) {
+                    const result = await response.json()
+                    throw new Error(result.data.error)
+                }
+                throw new Error(`Http error! status: ${response.status}`)
             }
 
-            const result = await response.json()
-            console.log(result)
+            // success register
+            navigate('/')
 
         } catch (error) {
             setError(error.message)
@@ -35,7 +41,6 @@ const SingUp = () => {
         } finally {
             setLoading(false)
         }
-
 
     }
 
@@ -81,7 +86,7 @@ const SingUp = () => {
                         {loading ? 'Submiting...' : 'Register'}
                     </button>
 
-                    {error && <p> {error}</p>}
+                    {error && <p className="text-sm text-red-500"> {error}</p>}
 
                     <div className="self-center mt-auto mb-1">
                         Already have an account?
