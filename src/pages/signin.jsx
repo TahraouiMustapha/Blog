@@ -21,10 +21,15 @@ const SingIn = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data),
-                // credentials: 'include' // receiving/sending cookies
             })
 
             if (!response.ok) {
+                // handle bad request responses
+                if (response.status == 400) {
+                    const errResponse = await response.json()
+                    throw new Error(errResponse.error)
+                }
+
                 throw new Error(`Http status ! ${response.status}`)
             }
 
@@ -87,7 +92,7 @@ const SingIn = () => {
                         {loading ? 'Submiting...' : 'Login'}
                     </button>
 
-                    {error && <p> {error}</p>}
+                    {error && <p className="text-sm text-red-500"> {error}</p>}
 
                     <div className="self-center mt-auto mb-1">
                         Don't have an account yet?
