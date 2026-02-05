@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router"
+import { useNavigate, Link } from "react-router"
 
 const SingIn = () => {
     const [loading, setLoading] = useState(false)
@@ -46,29 +46,56 @@ const SingIn = () => {
     }
 
     return (
-        <>
-            <form onSubmit={handleSubmit} method="POST">
-                <input
-                    name="username"
-                    type="email"
-                    required
-                />
+        <div className="flex-1 flex justify-center mt-32 mb-14">
+            <div className="flex flex-col items-center gap-4">
+                <p className="text-2xl text-txtClr font-semibold">Login</p>
+                <p>and participate in the <span className="text-primary">journey</span> with the <span className="text-primary">communty</span>!</p>
+                <form
+                    className="form"
+                    onSubmit={handleSubmit}
+                    method="POST"
+                >
+                    <p>
+                        <label htmlFor="username">
+                            Username <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                            className="border-transition"
+                            id="username"
+                            name="username"
+                            type="email"
+                            required
+                        />
+                    </p>
 
-                <input
-                    name="password"
-                    type="password"
-                    required
-                    minLength={8}
-                    maxLength={16}
-                />
+                    <p>
+                        <label htmlFor="password">
+                            Password <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                            className="border-transition"
+                            id="password"
+                            name="password"
+                            type="password"
+                            required
+                            minLength={8}
+                            maxLength={16}
+                        />
+                    </p>
 
-                {error && <p> {error}</p>}
+                    <button disabled={loading} className="submitBtn">
+                        {loading ? 'Submiting...' : 'Login'}
+                    </button>
 
-                <button disabled={loading}>
-                    {loading ? 'Submitting...' : 'Login'}
-                </button>
-            </form>
-        </>
+                    {error && <p> {error}</p>}
+
+                    <div className="self-center mt-auto mb-1">
+                        Don't have an account yet?
+                        <Link to={'/signup'}> <span className="text-primary">Sign up!</span></Link>
+                    </div>
+                </form>
+            </div>
+        </div>
     )
 }
 
