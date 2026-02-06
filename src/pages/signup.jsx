@@ -33,7 +33,7 @@ const SingUp = () => {
             }
 
             // success register
-            navigate('/')
+            navigate('/signin')
 
         } catch (error) {
             setError(error.message)

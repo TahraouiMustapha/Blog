@@ -12,7 +12,6 @@ const useGetUser = () => {
         const fetchUser = async () => {
             try {
                 const accessToken = sessionStorage.getItem('accessToken')
-
                 const signal = controller.signal
 
                 const response = await fetch('http://localhost:3000/api/users/me', {
@@ -42,7 +41,7 @@ const useGetUser = () => {
 
     }, [])
 
-    return { authUser }
+    return { authUser, setAuthUser }
 }
 
 export default useGetUser

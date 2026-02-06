@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { useNavigate, Link } from "react-router"
+import { useNavigate, Link, useOutletContext } from "react-router"
 
 const SingIn = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
+    const setAuthUser = useOutletContext()
     const navigate = useNavigate()
 
 
@@ -35,11 +36,24 @@ const SingIn = () => {
 
             const result = await response.json()
 
+            const accessToken = result.data.accessToken
             // store access token in sessionStorage
-            console.log(result.data.accessToken)
-            sessionStorage.setItem('accessToken', result.data.accessToken)
+            sessionStorage.setItem('accessToken', accessToken)
 
-            navigate('/')
+            // get The auth user
+            const responseAuthUser = await fetch('http://localhost:3000/api/users/me', {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                },
+            })
+
+            if (responseAuthUser.ok) {
+                const resultAuthUser = await responseAuthUser.json()
+                setAuthUser(resultAuthUser.data.user)
+                navigate('/')
+            }
+
 
         } catch (error) {
             setError(error.message)
