@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <div className="font-rob min-h-screen w-full flex flex-col bg-white">
-      <Header authUser={authUser}></Header>
+      <Header authUser={authUser} setAuthUser={setAuthUser}></Header>
       <Outlet context={setAuthUser} />
       <Footer></Footer>
     </div>

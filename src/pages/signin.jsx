@@ -16,7 +16,7 @@ const SingIn = () => {
         const data = Object.fromEntries(formData)
 
         try {
-            const response = await fetch('http://localhost:3000/api/auth/profile', {
+            const response = await fetch('/api/auth/profile', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ const SingIn = () => {
             sessionStorage.setItem('accessToken', accessToken)
 
             // get The auth user
-            const responseAuthUser = await fetch('http://localhost:3000/api/users/me', {
+            const responseAuthUser = await fetch('/api/users/me', {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${accessToken}`

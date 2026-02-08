@@ -14,7 +14,7 @@ const Logo = () => {
     )
 }
 
-const Btns = ({ authUser }) => {
+const Btns = ({ authUser, handleLogout }) => {
 
     return (
         <div className="flex items-center gap-8 text-lg">
@@ -27,7 +27,12 @@ const Btns = ({ authUser }) => {
             }
             {
                 authUser
-                    ? <PrimaryBtn to={'/'}>Log out</PrimaryBtn>
+                    ? <button
+                        onClick={handleLogout}
+                        className="bg-primary text-white p-2 rounded-sm hover:bg-darkerPrimary transition duration-300 ease cursor-pointer"
+                    >
+                        Log out
+                    </button>
                     : <PrimaryBtn to={'/signup'}>Sign Up</PrimaryBtn>
             }
 
@@ -36,12 +41,38 @@ const Btns = ({ authUser }) => {
     )
 }
 
-const Header = ({ authUser }) => {
+const Header = ({ authUser, setAuthUser }) => {
+
+    const handleLogout = async () => {
+        try {
+            const accessToken = sessionStorage.getItem('accessToken')
+
+            const response = await fetch('/api/auth/logout', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                },
+                credentials: 'include' // to send cookies
+            })
+
+            if (!response.ok) {
+                throw new Error('Logout failed!')
+            }
+
+            // delete access token 
+            sessionStorage.removeItem('accessToken')
+            setAuthUser(null)
+
+            console.log('logout successfuly')
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     return (
         <div className="h-18 flex justify-around items-center border-b border-brdClr">
             <Logo />
-            <Btns authUser={authUser} />
+            <Btns authUser={authUser} handleLogout={handleLogout} />
         </div>
     )
 }
