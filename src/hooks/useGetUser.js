@@ -12,19 +12,20 @@ const useGetUser = () => {
         const fetchUser = async () => {
             try {
                 const accessToken = sessionStorage.getItem('accessToken')
-                const signal = controller.signal
+                if (accessToken) {
+                    const signal = controller.signal
+                    const response = await fetch('http://localhost:3000/api/users/me', {
+                        method: 'POST',
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`
+                        },
+                        signal
+                    })
 
-                const response = await fetch('http://localhost:3000/api/users/me', {
-                    method: 'POST',
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
-                    },
-                    signal
-                })
-
-                if (response.ok) {
-                    const result = await response.json()
-                    setAuthUser(result.data.user)
+                    if (response.ok) {
+                        const result = await response.json()
+                        setAuthUser(result.data.user)
+                    }
                 }
 
             } catch (err) {
