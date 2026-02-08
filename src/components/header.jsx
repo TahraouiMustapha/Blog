@@ -3,6 +3,8 @@ import LogoName from './logoName'
 import PrimaryBtn from './primaryBtn'
 import LinkBtn from './linkBtn'
 
+import refreshAccessToken from '../utils/auth'
+
 const Logo = () => {
     return (
         <div className="flex items-center gap-2">
@@ -41,6 +43,7 @@ const Btns = ({ authUser, handleLogout }) => {
     )
 }
 
+
 const Header = ({ authUser, setAuthUser }) => {
 
     const handleLogout = async () => {
@@ -56,14 +59,23 @@ const Header = ({ authUser, setAuthUser }) => {
             })
 
             if (!response.ok) {
-                throw new Error('Logout failed!')
+                if (response.status === 401) {
+                    // Unauthorized (or token expired)
+                    const refreshResult = await refreshAccessToken()
+                    if (!refreshResult) {
+                        console.log('refresh failed')
+                    }
+                    console.log('refresh success')
+                    handleLogout()
+                }
+            } else {
+                // delete access token 
+                sessionStorage.removeItem('accessToken')
+                setAuthUser(null)
+
+                console.log('logout successfuly')
             }
 
-            // delete access token 
-            sessionStorage.removeItem('accessToken')
-            setAuthUser(null)
-
-            console.log('logout successfuly')
         } catch (error) {
             console.error(error)
         }
