@@ -9,4 +9,14 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
+  // to allow cookie storing by brave browser (see it as same origin)
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false, // Allow non-HTTPs connection
+      }
+    }
+  }
 })
