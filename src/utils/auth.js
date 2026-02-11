@@ -15,10 +15,8 @@ const refreshAccessToken = async () => {
 
     const result = await response.json()
     const accessToken = result.data.accessToken
-    // store access token in sessionStorage
-    sessionStorage.setItem('accessToken', accessToken)
 
-    return true;
+    return accessToken;
 }
 
 export default refreshAccessToken

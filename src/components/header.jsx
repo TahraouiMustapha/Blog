@@ -2,6 +2,7 @@ import { Newspaper } from "lucide-react"
 import LogoName from './logoName'
 import PrimaryBtn from './primaryBtn'
 import LinkBtn from './linkBtn'
+import { useNavigate } from "react-router"
 
 import refreshAccessToken from '../utils/auth'
 
@@ -45,6 +46,7 @@ const Btns = ({ authUser, handleLogout }) => {
 
 
 const Header = ({ authUser, setAuthUser }) => {
+    const navigate = useNavigate()
 
     const handleLogout = async () => {
         try {
@@ -61,18 +63,24 @@ const Header = ({ authUser, setAuthUser }) => {
             if (!response.ok) {
                 if (response.status === 401) {
                     // Unauthorized (or token expired)
+                    // this func return the accessToken or false if refreshToken is invalid
                     const refreshResult = await refreshAccessToken()
                     if (!refreshResult) {
-                        console.log('refresh failed')
+                        // re-login 
+                        sessionStorage.removeItem('accessToken')
+                        setAuthUser(null)
+                        navigate('/signin')
+                        return;
                     }
-                    console.log('refresh success')
+
+                    // store access token in sessionStorage
+                    sessionStorage.setItem('accessToken', refreshResult)
                     handleLogout()
                 }
             } else {
                 // delete access token 
                 sessionStorage.removeItem('accessToken')
                 setAuthUser(null)
-
                 console.log('logout successfuly')
             }
 
