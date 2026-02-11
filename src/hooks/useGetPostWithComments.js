@@ -1,0 +1,41 @@
+import { useState, useEffect } from "react"
+
+
+const useGetPostWithComments = ({ postId }) => {
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    const [postWithComments, setPostWithComments] = useState(null)
+
+    useEffect(() => {
+        if (!postId) return;
+
+        const controller = new AbortController()
+        const signal = controller.signal
+
+        const fetchPost = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/posts/${postId}`, signal)
+                const result = await response.json()
+
+                const { comments, ...post } = result.data.post
+
+                setPostWithComments({ post, comments })
+
+            } catch (err) {
+                setError(err)
+                console.log('There was an error: ', err)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchPost()
+
+        return () => controller.abort();
+    }, [postId])
+
+    return { postWithComments, loading, error }
+}
+
+export default useGetPostWithComments

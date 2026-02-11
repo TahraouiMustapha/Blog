@@ -4,7 +4,7 @@ import { useNavigate, Link, useOutletContext } from "react-router"
 const SingIn = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
-    const setAuthUser = useOutletContext()
+    const { setAuthUser } = useOutletContext()
     const navigate = useNavigate()
 
 
