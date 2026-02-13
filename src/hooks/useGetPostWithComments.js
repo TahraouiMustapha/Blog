@@ -16,8 +16,11 @@ const useGetPostWithComments = ({ postId }) => {
         const fetchPost = async () => {
             try {
                 const response = await fetch(`http://localhost:3000/api/posts/${postId}`, signal)
-                const result = await response.json()
+                if (response.status >= 400) {
+                    throw new Error('Server error')
+                }
 
+                const result = await response.json()
                 const { comments, ...post } = result.data.post
 
                 setPostWithComments({ post, comments })
@@ -35,7 +38,7 @@ const useGetPostWithComments = ({ postId }) => {
         return () => controller.abort();
     }, [postId])
 
-    return { postWithComments, loading, error }
+    return { postWithComments, setPostWithComments, loading, error }
 }
 
 export default useGetPostWithComments
