@@ -54,17 +54,23 @@ const LeaveComment = ({ postId, setPostWithComments }) => {
     }
 
     return (
-        <div>
-            <textarea
-                value={comment}
-                className="border border-red-500"
-                onChange={(e) => setComment(e.target.value)}
-                name="text" id="com" />
+        <div className="flex flex-col gap-3 p-5 ">
+            <p className="text-3xl font-semibold text-txtClr">Leave a Comment</p>
+            <div className="flex flex-col gap-1">
+                <p>Message<span className="text-red-600">*</span></p>
+                <textarea
+                    value={comment}
+                    className="w-[80%] h-20 p-3 border border-brdClr rounded-lg resize-y outline-none border-transition focus:border-primary"
+                    placeholder="Write your comment..."
+                    onChange={(e) => setComment(e.target.value)}
+                    name="text" id="com" />
 
-            <button
-                onClick={handleCommentCreation}>
-                Comment
-            </button>
+                <button
+                    className="self-start mt-2 bg-primary text-white p-2 rounded-sm hover:bg-darkerPrimary transition duration-300 ease-in-out cursor-pointer"
+                    onClick={handleCommentCreation}>
+                    Comment
+                </button>
+            </div>
         </div>
     )
 }
