@@ -2,12 +2,16 @@ import { useOutletContext, useParams } from "react-router"
 import useGetPostWithComments from "../hooks/useGetPostWithComments"
 import { useState } from "react"
 
+import { format } from "date-fns"
+
 const Comment = ({ comment }) => {
+    const date = format(comment.date, "do LLL yyyy")
+
     return (
         <div className="border border-brdClr rounded-md p-3">
             <div className="flex items-center gap-5 mb-2">
                 <p className="text-primary text-lg">{comment.username}</p>
-                <p className="dateTag">{comment.date}</p>
+                <p className="dateTag ml-auto mr-2">{date}</p>
             </div>
 
             <div>
@@ -80,27 +84,30 @@ const PostPage = () => {
     const { authUser } = useOutletContext()
     const { postWithComments, setPostWithComments, loading, error } = useGetPostWithComments({ postId: id })
 
-    const { post = null, comments = null } = postWithComments || {}
-
     if (loading) return <p className="text-center">...Loading</p>
     if (error) return <p>A network error was encountered</p>
 
+    const { post = null, comments = null } = postWithComments || {}
+    const date = format(post.date, "do LLL yyyy")
+
+    console.log(post)
+
     return (
-        <div className="flex-1 flex flex-col bigDiv">
+        <div className="flex-1 flex flex-col">
             <div
                 className="h-76 rounded-b-xl"
                 style={{ backgroundImage: post?.thumbnailUrl ? `url(${post.thumbnailUrl})` : 'none' }}>
                 image
             </div>
 
-            <div className="text-4xl/11 font-bold text-txtClr px-9 pt-9 pb-4">Building RESTful APIs with Node and Express</div>
+            <div className="text-4xl/11 font-bold text-txtClr px-9 pt-9 pb-4">{post.title}</div>
 
             <div>
-                <div className="dateTag ml-9">date</div>
+                <div className="dateTag ml-9">{date}</div>
             </div>
 
             <div className="p-9">
-                <p className="text-lg/6 text-txtClr">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas, dolore sed exercitationem ratione ex dignissimos est autem earum quis accusamus explicabo eveniet error quae vitae amet ut minima non commodi! Voluptas quidem placeat natus, dicta aperiam, repudiandae similique ullam, ratione minus nulla dolores est amet ipsum. Optio suscipit repudiandae nisi rerum, assumenda cumque. Aspernatur debitis hic earum dicta animi magnam dolore perferendis! Magnam libero rem nam dolorem recusandae pariatur asperiores ipsum vero sequi iste fugit, esse laboriosam voluptatibus eius id sapiente sed earum porro? Fuga unde commodi eveniet maiores! Aperiam laborum autem, libero quo nemo rerum vero non! Cumque, repudiandae?</p>
+                <p className="text-lg/6 text-txtClr">{post.text}</p>
             </div>
 
             {
@@ -109,7 +116,7 @@ const PostPage = () => {
             }
 
             <div className="p-5 flex flex-col gap-6">
-                <p className="text-3xl font-semibold text-txtClr ">Comments(5)</p>
+                <p className="text-3xl font-semibold text-txtClr ">Comments({comments?.length})</p>
                 <div className="flex flex-col gap-4">
                     {comments?.map(comment => <Comment key={comment.commentId} comment={comment} />)}
                 </div>
