@@ -58,13 +58,13 @@ const LeaveComment = ({ postId, setPostWithComments }) => {
     }
 
     return (
-        <div className="flex flex-col gap-3 p-5 ">
+        <div className="flex flex-col gap-3 p-5 md:px-12 lg:px-24 xl:px-9 border-t border-t-brdClr">
             <p className="text-3xl font-semibold text-txtClr">Leave a Comment</p>
             <div className="flex flex-col gap-1">
                 <p>Message<span className="text-red-600">*</span></p>
                 <textarea
                     value={comment}
-                    className="w-[80%] h-20 p-3 border border-brdClr rounded-lg resize-y outline-none border-transition focus:border-primary"
+                    className="w-[80%] h-20 p-3 border border-brdClr rounded-lg resize-none outline-none border-transition focus:border-primary"
                     placeholder="Write your comment..."
                     onChange={(e) => setComment(e.target.value)}
                     name="text" id="com" />
@@ -90,12 +90,11 @@ const PostPage = () => {
     const { post = null, comments = null } = postWithComments || {}
     const date = format(post.date, "do LLL yyyy")
 
-    console.log(post)
 
     return (
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col md:mx-14 xl:mx-96">
             <div
-                className="h-76 rounded-b-xl"
+                className="h-76 md:mx-9 rounded-b-xl"
                 style={{ backgroundImage: post?.thumbnailUrl ? `url(${post.thumbnailUrl})` : 'none' }}>
                 image
             </div>
@@ -115,7 +114,7 @@ const PostPage = () => {
                 && <LeaveComment postId={id} setPostWithComments={setPostWithComments} />
             }
 
-            <div className="p-5 flex flex-col gap-6">
+            <div className="p-5 md:px-8 lg:px-24 xl:px-9 flex flex-col gap-6 border-t border-t-brdClr">
                 <p className="text-3xl font-semibold text-txtClr ">Comments({comments?.length})</p>
                 <div className="flex flex-col gap-4">
                     {comments?.map(comment => <Comment key={comment.commentId} comment={comment} />)}

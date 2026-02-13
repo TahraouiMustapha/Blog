@@ -90,7 +90,7 @@ const Header = ({ authUser, setAuthUser }) => {
     }
 
     return (
-        <div className="h-18 flex justify-around items-center border-b border-brdClr">
+        <div className="bg-white h-18 flex justify-around items-center border-b border-brdClr sticky top-0 z-10">
             <Logo />
             <Btns authUser={authUser} handleLogout={handleLogout} />
         </div>
