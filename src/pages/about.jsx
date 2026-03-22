@@ -1,11 +1,11 @@
 const About = () => {
     return (
         <>
-            <div className="flex-1 flex flex-col mt-14 gap-8">
+            <div className="flex-1 flex flex-col mt-14 gap-8 sm:items-center">
                 <p className="text-4xl text-center font-bold">About <span className="text-primary">me.</span></p>
-                <div className="flex-1 mx-8">
-                    <div className="AboutMeImg bg-cover bg-no-repeat bg-[position:70%_70%] float-left size-50 rounded-full mr-6 textAroundIt animate-turn-to-view"></div>
-                    <div className="text-base/7">
+                <div className="flex-1 mx-8 sm:w-[60%]">
+                    <div className="AboutMeImg bg-cover bg-no-repeat bg-[position:70%_70%] float-left size-50 md:size-60 lg:size-70 xl:size-90 rounded-full mr-6 mb-6 sm:mr-7 sm:mb-7 textAroundIt animate-turn-to-view"></div>
+                    <div className="text-base/7 text-justify">
                         <h3 className="animate-fade-in mb-3">
                             Hi, I’m <span className="text-primary">Mustapha</span>, a junior self-taught <span className="text-primary">web developer</span> from Algeria. Over the past years, I’ve immersed myself in coding and exploring modern web technologies in order to build engaging, functional, and user-friendly web applications. My journey started with curiosity and quickly grew into a strong passion for creating and continuously improving my skills.
                         </h3>
