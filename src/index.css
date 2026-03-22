@@ -13,6 +13,7 @@
 
     /* animation */
     --animate-fade-in: fade-in-scale 0.6s ease-in-out backwards;
+    --animate-turn-to-view: turn-to-view 0.7s ease-in-out backwards;
 
     @keyframes fade-in-scale {
         0% {
@@ -23,6 +24,19 @@
         100% {
             opacity: 1;
             transform: translateY(0);
+        }
+    }
+
+
+    @keyframes turn-to-view {
+        0% {
+            transform: scaleX(0);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scaleX(1);
+            opacity: 1;
         }
     }
 }
@@ -70,8 +84,13 @@ body {
         animation-delay: 0.7s;
     }
 
-    .animationDelayTh {
-        animation-delay: 0.9s;
+    /* to affect how surrounding text wraps around it*/
+    .textAroundIt {
+        shape-outside: circle(50%)
+    }
+
+    .AboutMeImg {
+        background-image: url('./assets/AboutMe.jpg')
     }
 }
 
