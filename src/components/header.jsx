@@ -25,7 +25,7 @@ const Btns = ({ authUser, handleLogout }) => {
             <LinkBtn to={'/about'}>About me</LinkBtn>
             {
                 authUser
-                    ? <p className="text-gray-500 text-xl">{authUser.username}</p>
+                    ? <p className="text-gray-500 text-xl max-w-60 overflow-hidden whitespace-nowrap text-ellipsis">{authUser.username}</p>
                     : <LinkBtn to={'/signin'}>Login</LinkBtn>
             }
             {
