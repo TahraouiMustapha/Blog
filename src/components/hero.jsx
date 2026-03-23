@@ -12,7 +12,7 @@ const Welcome = () => {
                 <p className='text-lg/7 text-center'>
                     Hi there! My name is Dominik Augustyn, and this is my blog: written by an aspiring web developer, for other aspiring developers. Feel free to read all about my insights, experiences, tips and reflections!
                 </p>
-                <div className='flex items-center justify-center gap-8 '>
+                <div className='flex items-center justify-center gap-8 text-lg'>
                     <PrimaryBtn to='/signup'>Sign Up Now !</PrimaryBtn>
                     <LinkBtn to='/about'>Read about me !</LinkBtn>
                 </div>
@@ -45,7 +45,7 @@ const Hero = () => {
     return (
         <div className='flex flex-col h-screen'>
             <Welcome />
-            <div className='h-[45%] bg-red-500'>
+            <div className='flex-1 AboutMeImg bg-cover bg-no-repeat bg-center'>
                 image
             </div>
         </div>
