@@ -41,7 +41,7 @@ const PostsContainer = () => {
 
     return (
         <div className="pt-12 pb-12 flex flex-col items-center gap-8 text-txtClr">
-            <h1 className="text-5xl font-bold">Available <span className="text-primary">TOP</span> blog articles</h1>
+            <h1 className="text-5xl font-bold text-center">Available <span className="text-primary">TOP</span> blog articles</h1>
             <SearchBar setSearchValue={setSearchValue} />
             <Posts posts={searchedPost} loading={loading} error={error} />
         </div>
