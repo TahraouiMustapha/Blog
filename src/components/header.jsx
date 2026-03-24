@@ -5,6 +5,7 @@ import LinkBtn from './linkBtn'
 import { useNavigate } from "react-router"
 
 import refreshAccessToken from '../utils/auth'
+import { useEffect, useState } from "react"
 
 const Logo = () => {
     return (
@@ -44,9 +45,26 @@ const Btns = ({ authUser, handleLogout }) => {
     )
 }
 
+const HamburgerMenu = () => {
+
+    const handleClick = () => {
+        console.log('hi')
+    }
+
+    return (
+        <button
+            onClick={handleClick}
+        >
+            hi
+        </button>
+    )
+}
 
 const Header = ({ authUser, setAuthUser }) => {
     const navigate = useNavigate()
+    const [isMobile, setIsMobile] = useState(
+        window.matchMedia("(max-width: 768px)").matches
+    )
 
     const handleLogout = async () => {
         try {
@@ -89,10 +107,27 @@ const Header = ({ authUser, setAuthUser }) => {
         }
     }
 
+    useEffect(() => {
+        const media = window.matchMedia("(max-width: 768px)")
+
+        const handleChange = (e) => {
+            setIsMobile(e.matches)
+        }
+
+        media.addEventListener('change', handleChange)
+
+        return () => media.removeEventListener('change', handleChange)
+
+    }, [])
+
     return (
         <div className="bg-white h-18 flex justify-around items-center border-b border-brdClr sticky top-0 z-10">
             <Logo />
-            <Btns authUser={authUser} handleLogout={handleLogout} />
+            {
+                isMobile
+                    ? <HamburgerMenu />
+                    : <Btns authUser={authUser} handleLogout={handleLogout} />
+            }
         </div>
     )
 }
