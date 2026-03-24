@@ -1,24 +1,13 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
-import { Newspaper } from "lucide-react"
 import refreshAccessToken from '../utils/auth'
 
-import LogoName from './logoName'
+import { Logo } from './Logo'
 import PrimaryBtn from './primaryBtn'
 import LinkBtn from './linkBtn'
 import DropDownMenu from './DropDownMenu'
 import { Menu } from "lucide-react"
 
-const Logo = () => {
-    return (
-        <div className="flex items-center gap-2">
-            <Newspaper size={40} />
-            <h2 className="text-2xl font-bold tracking-wide">
-                <LogoName />
-            </h2>
-        </div>
-    )
-}
 
 const Btns = ({ authUser, handleLogout }) => {
 
