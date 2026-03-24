@@ -1,11 +1,13 @@
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router"
 import { Newspaper } from "lucide-react"
+import refreshAccessToken from '../utils/auth'
+
 import LogoName from './logoName'
 import PrimaryBtn from './primaryBtn'
 import LinkBtn from './linkBtn'
-import { useNavigate } from "react-router"
-
-import refreshAccessToken from '../utils/auth'
-import { useEffect, useState } from "react"
+import DropDownMenu from './DropDownMenu'
+import { Menu } from "lucide-react"
 
 const Logo = () => {
     return (
@@ -46,17 +48,20 @@ const Btns = ({ authUser, handleLogout }) => {
 }
 
 const HamburgerMenu = () => {
+    const [isOpen, setIsOpen] = useState(false)
 
     const handleClick = () => {
-        console.log('hi')
+        setIsOpen(state => !state)
     }
 
     return (
-        <button
-            onClick={handleClick}
-        >
-            hi
-        </button>
+        <div>
+            <Menu
+                className="stroke-3"
+                onClick={handleClick}
+            />
+            {isOpen && <DropDownMenu handleClick={handleClick} />}
+        </div>
     )
 }
 
