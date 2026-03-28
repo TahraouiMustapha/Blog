@@ -1,12 +1,10 @@
+import { Outlet } from 'react-router-dom';
+
 import Header from './components/header'
 import Footer from './components/footer'
 
-import { Outlet } from 'react-router-dom';
 import useGetUser from './hooks/useGetUser';
-
-
-
-
+import HeaderInfoContext from './context/headerInfoContext';
 
 
 const App = () => {
@@ -15,7 +13,10 @@ const App = () => {
 
   return (
     <div className="font-rob min-h-screen w-full flex flex-col bg-white">
-      <Header authUser={authUser} setAuthUser={setAuthUser}></Header>
+      <HeaderInfoContext value={{ authUser, setAuthUser }}>
+        <Header />
+      </HeaderInfoContext>
+
       <Outlet context={{ authUser, setAuthUser }} />
       <Footer></Footer>
     </div>

@@ -1,4 +1,4 @@
-import Logo from '../components/logoName'
+import { LogoName } from './Logo'
 import PrimaryBtn from './primaryBtn'
 import LinkBtn from './linkBtn'
 
@@ -7,7 +7,7 @@ const Welcome = () => {
         <div className='m-14 xl:w-[40%] xl:flex xl:justify-center'>
             <div className='flex flex-col items-center gap-6 xl:gap-5 xl:w-[60%]'>
                 <h2 className='text-4xl xl:text-5xl/12 font-bold'>
-                    Welcome to <Logo />
+                    Welcome to <LogoName />
                 </h2>
                 <p className='text-lg/7 text-justify'>
                     Hi there! My name is Tahraoui Mustapha, and this is my blog: written by an aspiring web developer, for other aspiring developers. Feel free to read all about my insights, experiences, tips and reflections!

@@ -14,6 +14,8 @@
     /* animation */
     --animate-fade-in: fade-in-scale 0.6s ease-in-out backwards;
     --animate-turn-to-view: turn-to-view 0.8s ease-in-out backwards;
+    --animate-open-overlay: open-overlay 0.3s ease-in-out;
+    --animate-open-menu: open-menu 0.3s ease-in-out;
 
     @keyframes fade-in-scale {
         0% {
@@ -37,6 +39,27 @@
         100% {
             transform: scaleX(1);
             opacity: 1;
+        }
+    }
+
+    @keyframes open-menu {
+        0% {
+            width: 0;
+        }
+
+        100% {
+            width: 45%;
+        }
+    }
+
+    /* for the gray part beside menu */
+    @keyframes open-overlay {
+        0% {
+            opacity: 0
+        }
+
+        100% {
+            opacity: 1
         }
     }
 }
@@ -74,6 +97,10 @@ body {
 
     .dateTag {
         @apply w-fit p-1.5 rounded-lg text-sm font-bold tracking-wide text-[#B45309] bg-[#FEF3C7];
+    }
+
+    .btnsMenu>* {
+        @apply flex items-center gap-2 text-lg text-txtClr stroke-gray-400
     }
 
     .animationDelaySd {

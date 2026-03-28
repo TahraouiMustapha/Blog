@@ -1,23 +1,18 @@
-import { Newspaper } from "lucide-react"
-import LogoName from './logoName'
-import PrimaryBtn from './primaryBtn'
-import LinkBtn from './linkBtn'
-import { useNavigate } from "react-router"
-
+import { useEffect, useState, useContext, useRef } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import refreshAccessToken from '../utils/auth'
 
-const Logo = () => {
-    return (
-        <div className="flex items-center gap-2">
-            <Newspaper size={40} />
-            <h2 className="text-2xl font-bold tracking-wide">
-                <LogoName />
-            </h2>
-        </div>
-    )
-}
+import { Logo } from './Logo'
+import PrimaryBtn from './primaryBtn'
+import LinkBtn from './linkBtn'
+import DropDownMenu from './DropDownMenu'
+import { Menu } from "lucide-react"
 
-const Btns = ({ authUser, handleLogout }) => {
+import HeaderInfoContext from "../context/headerInfoContext"
+
+
+const Btns = ({ handleLogout }) => {
+    const { authUser } = useContext(HeaderInfoContext)
 
     return (
         <div className="flex items-center gap-8 text-lg">
@@ -44,9 +39,48 @@ const Btns = ({ authUser, handleLogout }) => {
     )
 }
 
+const HamburgerMenu = ({ handleLogout, isOpen, setIsOpen }) => {
+    const myPath = useRef()
+    const location = useLocation()
 
-const Header = ({ authUser, setAuthUser }) => {
+    const handleClick = () => {
+        setIsOpen(state => !state)
+    }
+
+
+    useEffect(() => {
+        if (myPath.current === undefined) {
+            myPath.current = location.pathname
+            return
+        }
+
+        if (myPath.current !== location.pathname) {
+            myPath.current = location.pathname
+            setIsOpen(state => !state)
+        }
+
+    }, [location.pathname])
+
+    return (
+        <div>
+            <Menu
+                className="stroke-3"
+                onClick={handleClick}
+            />
+            {isOpen && <DropDownMenu handleClick={handleClick} handleLogout={handleLogout} />}
+        </div>
+    )
+}
+
+const Header = () => {
+    const { setAuthUser } = useContext(HeaderInfoContext)
     const navigate = useNavigate()
+    const [isMobile, setIsMobile] = useState(
+        window.matchMedia("(max-width: 768px)").matches
+    )
+    // to handle the menu open
+    const [isOpen, setIsOpen] = useState(false)
+
 
     const handleLogout = async () => {
         try {
@@ -81,6 +115,7 @@ const Header = ({ authUser, setAuthUser }) => {
                 // delete access token 
                 sessionStorage.removeItem('accessToken')
                 setAuthUser(null)
+                setIsOpen(false)
                 console.log('logout successfuly')
             }
 
@@ -89,10 +124,27 @@ const Header = ({ authUser, setAuthUser }) => {
         }
     }
 
+    useEffect(() => {
+        const media = window.matchMedia("(max-width: 768px)")
+
+        const handleChange = (e) => {
+            setIsMobile(e.matches)
+        }
+
+        media.addEventListener('change', handleChange)
+
+        return () => media.removeEventListener('change', handleChange)
+
+    }, [])
+
     return (
         <div className="bg-white h-18 flex justify-around items-center border-b border-brdClr sticky top-0 z-10">
             <Logo />
-            <Btns authUser={authUser} handleLogout={handleLogout} />
+            {
+                isMobile
+                    ? <HamburgerMenu handleLogout={handleLogout} isOpen={isOpen} setIsOpen={setIsOpen} />
+                    : <Btns handleLogout={handleLogout} />
+            }
         </div>
     )
 }
