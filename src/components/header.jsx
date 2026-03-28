@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router"
+import { useEffect, useState, useContext, useRef } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import refreshAccessToken from '../utils/auth'
 
 import { Logo } from './Logo'
@@ -8,8 +8,11 @@ import LinkBtn from './linkBtn'
 import DropDownMenu from './DropDownMenu'
 import { Menu } from "lucide-react"
 
+import HeaderInfoContext from "../context/headerInfoContext"
 
-const Btns = ({ authUser, handleLogout }) => {
+
+const Btns = ({ handleLogout }) => {
+    const { authUser } = useContext(HeaderInfoContext)
 
     return (
         <div className="flex items-center gap-8 text-lg">
@@ -36,12 +39,27 @@ const Btns = ({ authUser, handleLogout }) => {
     )
 }
 
-const HamburgerMenu = () => {
-    const [isOpen, setIsOpen] = useState(false)
+const HamburgerMenu = ({ handleLogout, isOpen, setIsOpen }) => {
+    const myPath = useRef()
+    const location = useLocation()
 
     const handleClick = () => {
         setIsOpen(state => !state)
     }
+
+
+    useEffect(() => {
+        if (myPath.current === undefined) {
+            myPath.current = location.pathname
+            return
+        }
+
+        if (myPath.current !== location.pathname) {
+            myPath.current = location.pathname
+            setIsOpen(state => !state)
+        }
+
+    }, [location.pathname])
 
     return (
         <div>
@@ -49,16 +67,20 @@ const HamburgerMenu = () => {
                 className="stroke-3"
                 onClick={handleClick}
             />
-            {isOpen && <DropDownMenu handleClick={handleClick} />}
+            {isOpen && <DropDownMenu handleClick={handleClick} handleLogout={handleLogout} />}
         </div>
     )
 }
 
-const Header = ({ authUser, setAuthUser }) => {
+const Header = () => {
+    const { setAuthUser } = useContext(HeaderInfoContext)
     const navigate = useNavigate()
     const [isMobile, setIsMobile] = useState(
         window.matchMedia("(max-width: 768px)").matches
     )
+    // to handle the menu open
+    const [isOpen, setIsOpen] = useState(false)
+
 
     const handleLogout = async () => {
         try {
@@ -93,6 +115,7 @@ const Header = ({ authUser, setAuthUser }) => {
                 // delete access token 
                 sessionStorage.removeItem('accessToken')
                 setAuthUser(null)
+                setIsOpen(false)
                 console.log('logout successfuly')
             }
 
@@ -119,8 +142,8 @@ const Header = ({ authUser, setAuthUser }) => {
             <Logo />
             {
                 isMobile
-                    ? <HamburgerMenu />
-                    : <Btns authUser={authUser} handleLogout={handleLogout} />
+                    ? <HamburgerMenu handleLogout={handleLogout} isOpen={isOpen} setIsOpen={setIsOpen} />
+                    : <Btns handleLogout={handleLogout} />
             }
         </div>
     )

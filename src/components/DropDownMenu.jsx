@@ -1,9 +1,18 @@
-import { X, House, Info, LogIn } from "lucide-react"
+import { useContext } from "react"
+
+import { X, House, Info, LogIn, LogOut } from "lucide-react"
 import { Logo } from "./Logo"
 import LinkBtn from "./linkBtn"
 import PrimaryBtn from "./primaryBtn"
 
-const DropDownMenu = ({ handleClick }) => {
+import HeaderInfoContext from "../context/headerInfoContext"
+
+
+const DropDownMenu = ({ handleClick, handleLogout }) => {
+
+    const { authUser } = useContext(HeaderInfoContext)
+
+
     return (
         <div className="bg-gray-500 absolute h-screen w-screen inset-0 flex animate-open-overlay">
             {/* backdrop */}
@@ -27,13 +36,29 @@ const DropDownMenu = ({ handleClick }) => {
                         <Info />
                         <LinkBtn to={'/about'}>About me</LinkBtn>
                     </div>
-                    <div>
-                        <LogIn />
-                        <LinkBtn to={'/signin'}>Login</LinkBtn>
-                    </div>
-                    <div>
-                        <PrimaryBtn to={'/signup'}>Sign Up</PrimaryBtn>
-                    </div>
+
+                    {
+                        authUser
+                            ? (
+                                <div>
+                                    <LogOut />
+                                    <button
+                                        onClick={handleLogout}
+                                        className="p-2 rounded-sm hover:bg-darkerPrimary transition duration-300 ease cursor-pointer"
+                                    >
+                                        Log out
+                                    </button>
+                                </div>
+                            ) : (<>
+                                <div>
+                                    <LogIn />
+                                    <LinkBtn to={'/signin'}>Login</LinkBtn>
+                                </div>
+                                <div>
+                                    <PrimaryBtn to={'/signup'}>Sign Up</PrimaryBtn>
+                                </div>
+                            </>)
+                    }
                 </div>
             </div>
         </div>
