@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://blog-api-rjm2.onrender.com',
         changeOrigin: true,
         secure: false, // Allow non-HTTPs connection
       }
