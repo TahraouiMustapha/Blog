@@ -10,6 +10,7 @@ import { Menu } from "lucide-react"
 
 import HeaderInfoContext from "../context/headerInfoContext"
 
+import { API_URL } from "../utils/api_url"
 
 const Btns = ({ handleLogout }) => {
     const { authUser } = useContext(HeaderInfoContext)
@@ -86,7 +87,7 @@ const Header = () => {
         try {
             const accessToken = sessionStorage.getItem('accessToken')
 
-            const response = await fetch('/api/auth/logout', {
+            const response = await fetch(`${API_URL}/api/auth/logout`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${accessToken}`

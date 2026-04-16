@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate, Link, useOutletContext } from "react-router"
+import { API_URL } from "../utils/api_url"
 
 const SingIn = () => {
     const [loading, setLoading] = useState(false)
@@ -16,7 +17,7 @@ const SingIn = () => {
         const data = Object.fromEntries(formData)
 
         try {
-            const response = await fetch('/api/auth/profile', {
+            const response = await fetch(`${API_URL}/api/auth/profile`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,7 +42,7 @@ const SingIn = () => {
             sessionStorage.setItem('accessToken', accessToken)
 
             // get The auth user
-            const responseAuthUser = await fetch('/api/users/me', {
+            const responseAuthUser = await fetch(`${API_URL}/api/users/me`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${accessToken}`

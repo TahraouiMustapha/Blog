@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-
+import { API_URL } from "../utils/api_url"
 
 const useGetUser = () => {
     const [authUser, setAuthUser] = useState(null)
@@ -14,7 +14,7 @@ const useGetUser = () => {
                 const accessToken = sessionStorage.getItem('accessToken')
                 if (accessToken) {
                     const signal = controller.signal
-                    const response = await fetch('http://localhost:3000/api/users/me', {
+                    const response = await fetch(`${API_URL}/api/users/me`, {
                         method: 'POST',
                         headers: {
                             Authorization: `Bearer ${accessToken}`

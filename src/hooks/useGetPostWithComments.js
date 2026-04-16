@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-
+import { API_URL } from "../utils/api_url"
 
 const useGetPostWithComments = ({ postId }) => {
     const [error, setError] = useState(null)
@@ -15,7 +15,7 @@ const useGetPostWithComments = ({ postId }) => {
 
         const fetchPost = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/posts/${postId}`, signal)
+                const response = await fetch(`${API_URL}/api/posts/${postId}`, signal)
                 if (response.status >= 400) {
                     throw new Error('Server error')
                 }

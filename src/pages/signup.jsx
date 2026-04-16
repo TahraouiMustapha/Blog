@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from 'react-router'
+import { API_URL } from "../utils/api_url";
 
 const SingUp = () => {
     const navigate = useNavigate()
@@ -15,7 +16,7 @@ const SingUp = () => {
         const data = Object.fromEntries(form)
 
         try {
-            const response = await fetch('http://localhost:3000/api/users', {
+            const response = await fetch(`${API_URL}/api/users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "../utils/api_url";
 
 const useGetPosts = () => {
     const [posts, setPosts] = useState([]);
@@ -11,7 +12,7 @@ const useGetPosts = () => {
         const controller = new AbortController()
         const signal = controller.signal
 
-        fetch('/api/posts', { signal: signal })
+        fetch(`${API_URL}/api/posts`, { signal: signal })
             .then(res => {
                 if (!res.ok) throw new Error("Network response was not ok");
                 return res.json();
