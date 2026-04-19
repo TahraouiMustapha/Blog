@@ -16,9 +16,9 @@ const BlogCard = ({ post }) => {
             <div className="flex-1 p-6 flex flex-col gap-2">
                 <div className="text-lg font-semibold">{post.title}</div>
                 <p className='dateTag'>{date}</p>
-                <p className="text-sm/4.5 text-txtClr/70 line-clamp-5">
-                    {post.text}
-                </p>
+                <div
+                    dangerouslySetInnerHTML={{ __html: post?.text }}
+                    className="text-sm/4.5 text-txtClr/70 line-clamp-5" />
             </div>
         </Link >
     )

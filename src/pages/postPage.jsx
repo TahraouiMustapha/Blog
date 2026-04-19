@@ -108,7 +108,9 @@ const PostPage = () => {
             </div>
 
             <div className="p-9">
-                <p className="text-lg/6 text-txtClr">{post.text}</p>
+                <div
+                    dangerouslySetInnerHTML={{ __html: post?.text }}
+                    className="text-lg/6 text-txtClr" />
             </div>
 
             {
