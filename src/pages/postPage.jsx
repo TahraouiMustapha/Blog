@@ -4,6 +4,8 @@ import { useState } from "react"
 
 import { format } from "date-fns"
 
+import { API_URL } from "../utils/api_url"
+
 const Comment = ({ comment }) => {
     const date = format(comment.date, "do LLL yyyy")
 
@@ -32,7 +34,7 @@ const LeaveComment = ({ postId, setPostWithComments }) => {
                     text: comment
                 }
 
-                const response = await fetch(`http://localhost:3000/api/posts/${postId}/comments`, {
+                const response = await fetch(`${API_URL}/api/posts/${postId}/comments`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,
